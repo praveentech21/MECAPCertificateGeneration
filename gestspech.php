@@ -4,7 +4,7 @@ if (!isset($_SESSION['admin'])) header("location: login.php");
 
 include 'connect.php';
 
-$replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NULL");
+$participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapation` ='gestspech'");
 
 ?>
 
@@ -71,13 +71,13 @@ $replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NU
                 </tr>
               </thead>
               <tbody>
-                <?php while ($row = mysqli_fetch_array($replayers)) { ?>
+                <?php while ($row = mysqli_fetch_array($participants)) { ?>
                   <tr>
-                    <td><strong><?php echo strtoupper($row['player_name']) ?></strong></td>
+                    <td><strong><?php echo strtoupper($row['name']) ?></strong></td>
                     <td><?php echo $row['department'] ?></td>
-                    <td><button type="button" name="conformpayment" class="btn rounded-pill btn-primary get-certificate" data-pid="<?php echo $row['pid']; ?>" data-roll="<?php echo $row['regno']; ?>">Certificate</button></td>
-                    <td><button type="button" name="conformpayment" class="btn btn-success conform-payment" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['pid']; ?>">Whats App</button></td>
-                    <td><button type="button" name="conformpayment" class="btn btn-danger conform-payment" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['pid']; ?>">Mail</button></td>
+                    <td><button type="button" class="btn rounded-pill btn-primary get-certificate" data-pid="<?php echo $row['mid']; ?>" >Certificate</button></td>
+                    <td><button type="button" class="btn btn-success whats-app" data-name="<?php echo $row['player_name'] ?>" ?>">Whats App</button></td>
+                    <td><button type="button" class="btn btn-danger email" data-name="<?php echo $row['player_name'] ?>" ?>">Mail</button></td>
                   </tr>
                 <?php } ?>
               </tbody>

@@ -4,7 +4,7 @@ if (!isset($_SESSION['admin'])) header("location: login.php");
 
 include 'connect.php';
 
-$replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NULL");
+$participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapation` ='particapation'");
 
 ?>
 
@@ -71,13 +71,13 @@ $replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NU
                 </tr>
               </thead>
               <tbody>
-                <?php while ($row = mysqli_fetch_array($replayers)) { ?>
+                <?php while ($row = mysqli_fetch_array($participants)) { ?>
                   <tr>
-                    <td><strong><?php echo strtoupper($row['player_name']) ?></strong></td>
+                    <td><strong><?php echo strtoupper($row['name']) ?></strong></td>
                     <td><?php echo $row['department'] ?></td>
-                    <td><button type="button" name="conformpayment" class="btn rounded-pill btn-primary get-certificate" data-pid="<?php echo $row['pid']; ?>" data-roll="<?php echo $row['regno']; ?>">Certificate</button></td>
-                    <td><button type="button" name="conformpayment" class="btn btn-success conform-payment" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['pid']; ?>">Whats App</button></td>
-                    <td><button type="button" name="conformpayment" class="btn btn-danger conform-payment" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['pid']; ?>">Mail</button></td>
+                    <td><button type="button" class="btn rounded-pill btn-primary get-certificate" data-pid="<?php echo $row['mid']; ?>" >Certificate</button></td>
+                    <td><button type="button" class="btn btn-success whats-app" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['mobile']; ?>" ?>">Whats App</button></td>
+                    <td><button type="button" class="btn btn-danger email" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['email']; ?>" ?>">Mail</button></td>
                   </tr>
                 <?php } ?>
               </tbody>
@@ -104,7 +104,6 @@ $replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NU
       $(".get-certificate").click(function() {
         // Get the user ID from the data attribute
         var pid = $(this).data("pid");
-        var rolll = $(this).data("roll");
 
         // Send an AJAX request to update the database
         $.ajax({
@@ -117,11 +116,10 @@ $replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NU
             // Handle the server response if needed
             console.log("Server Response:", response);
 
-
             var link = document.createElement("a");
 
             // Set the href attribute to the file URL
-            link.href = "https://srkrec.edu.in/spellbee/admin/certificate/tmp/" + rolll + ".png";
+            link.href = "http://localhost/mecap/certificate/tmp/" + rolll + ".png";
 
             // Set the download attribute to specify the filename
             link.download = rolll + ".png";
@@ -129,7 +127,7 @@ $replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NU
             // Trigger a click event on the anchor element
             link.click();
 
-            window.open("https://srkrec.edu.in/spellbee/admin/certificate/tmp/" + rolll + ".png" , "_blank");
+            window.open("http://localhost/mecap/certificate/tmp/" + rolll + ".png" , "_blank");
 
           },
           error: function() {
@@ -138,7 +136,24 @@ $replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NU
           }
         });
       });
-      $(".conform-payment").click(function() {
+      $(".whats-app").click(function() {
+        // Get the user ID from the data attribute
+        var phoneNumber = $(this).data("pid");
+        var name = $(this).data("name");        
+
+            var message = "Dear "+name+",\nThank You for being a part of SRKR SpellBee Challenge 2023\nThis certificate is presented to you in recognition of your active participation in SRKR SPELL BEE CHAMP. We hope you enjoyed the event.\n\nDownload Your Level 1 Certificate @  https://srkrec.edu.in/spellbee/certificate.php \nFor more details and leaderboard score, visit https://srkrec.edu.in/spellbee/\n\n-SRKR SpellBee Organizing Team(SDC), CSD";
+
+
+        // Encode the message for use in a URL
+        var encodedMessage = encodeURIComponent(message);
+
+        // Construct the WhatsApp URL
+        var whatsappURL = "https://wa.me/" + phoneNumber + "?text=" + encodedMessage;
+
+        // Open WhatsApp with the pre-filled message
+        window.open(whatsappURL, "_blank");
+      });
+      $(".email").click(function() {
         // Get the user ID from the data attribute
         var phoneNumber = $(this).data("pid");
         var name = $(this).data("name");
