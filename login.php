@@ -8,15 +8,9 @@ if (!empty($_SESSION['admin'])) {
 if (isset($_POST['submit'])) {
   $admin = $_POST['admin'];
   $pass = $_POST['pass'];
-  if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM `admins` WHERE `mobile`='$admin' AND `password`='$pass'")) == 1) {
-    $_SESSION['category'] = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `admins` WHERE `mobile`='$admin' AND `password`='$pass'"))['category'];
-
-    $_SESSION['admin'] = $admin;
-    if($_SESSION['category'] == 'stall' || $_SESSION['category'] == 'superadmin')
+  if ($admin == "9052727402" && $pass == "mecap2023") {
     header("location: index.php");
-    else
-    header("location: students.php");
-
+    $_SESSION['admin'] = $admin;
   } else {
     echo "<script>alert('This is Not For You')</script>";
   }
@@ -76,7 +70,7 @@ if (isset($_POST['submit'])) {
             <!-- Logo -->
             <div class="app-brand justify-content-center">
               <a href="index.html" class="app-brand-link gap-2">
-                <span class="app-brand-text demo text-body fw-bolder">SPELLBEE ADMIN</span>
+                <span class="app-brand-text demo text-body fw-bolder">MECAP Admin</span>
               </a>
             </div>
             <!-- /Logo -->

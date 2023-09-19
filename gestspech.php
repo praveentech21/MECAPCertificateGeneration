@@ -57,33 +57,27 @@ $replayers = mysqli_query($conn, "SELECT * FROM `users` WHERE `points` IS NOT NU
 
       <!-- Bordered Table -->
       <div class="card">
-        <h5 class="card-header">Game certificate</h5>
+        <h5 class="card-header">Certificate for participation</h5>
         <div class="card-body">
           <div class="table-responsive text-nowrap">
             <table class="table table-bordered" id="registrationTable">
               <thead>
                 <tr>
                   <th>NAME</th>
-                  <th>REGISTRATION NO</th>
                   <th>DEPARTMENT</th>
-                  <th>YEAR</th>
                   <th>Certificate</th>
-                  <th>Send</th>
+                  <th>WhatsApp</th>
+                  <th>Mail</th>
                 </tr>
               </thead>
               <tbody>
                 <?php while ($row = mysqli_fetch_array($replayers)) { ?>
                   <tr>
                     <td><strong><?php echo strtoupper($row['player_name']) ?></strong></td>
-                    <td><?php echo strtoupper($row['regno']) ?></td>
                     <td><?php echo $row['department'] ?></td>
-                    <td><?php if ($row['place'] == '2027') echo "First Year";
-                        elseif ($row['place'] == '2026') echo "Second Year";
-                        elseif ($row['place'] == '2025') echo "Third Year";
-                        elseif ($row['place'] == '2024') echo "Fourth Year";
-                        ?></td>
                     <td><button type="button" name="conformpayment" class="btn rounded-pill btn-primary get-certificate" data-pid="<?php echo $row['pid']; ?>" data-roll="<?php echo $row['regno']; ?>">Certificate</button></td>
                     <td><button type="button" name="conformpayment" class="btn btn-success conform-payment" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['pid']; ?>">Whats App</button></td>
+                    <td><button type="button" name="conformpayment" class="btn btn-danger conform-payment" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['pid']; ?>">Mail</button></td>
                   </tr>
                 <?php } ?>
               </tbody>
