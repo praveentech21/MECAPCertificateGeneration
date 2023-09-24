@@ -1,10 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['supid'])) header("location: login.php");
+if (!isset($_SESSION['supid']))
+  header('location: login.php');
 
 include 'connect.php';
 
-$participants = mysqli_query($conn, "SELECT * FROM `members` ");
+$participants = mysqli_query($conn, 'SELECT * FROM `members` ');
 
 ?>
 
@@ -66,7 +67,6 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` ");
                   <th>NAME</th>
                   <th>DEPARTMENT</th>
                   <th>Type</th>
-                  <th>Certificate</th>
                   <th>WhatsApp</th>
                   <th>Mail</th>
                 </tr>
@@ -77,7 +77,6 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` ");
                     <td><strong><?php echo strtoupper($row['name']) ?></strong></td>
                     <td><?php echo $row['department'] ?></td>
                     <td><?php echo $row['particapation'] ?></td>
-                    <td><button type="button" class="btn rounded-pill btn-primary get-certificate" data-pid="<?php echo $row['mobile']; ?>" >Certificate</button></td>
                     <td><button type="button" class="btn btn-success whats-app" data-name="<?php echo $row['name'] ?>" data-pid="<?php echo $row['mobile']; ?>" ?>Whats App</button></td>
                     <td><button type="button" class="btn btn-danger email" data-name="<?php echo $row['name'] ?>" data-pid="<?php echo $row['email']; ?>" ?>Mail</button></td>
                   </tr>
@@ -89,7 +88,7 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` ");
       </div>
       <!--/ Bordered Table -->
 
-      
+
     </div>
   </div>
   <!-- Content Ends Here Shiva -->
@@ -103,48 +102,12 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` ");
   <script>
     $(document).ready(function() {
       // Add a click event listener to the buttons with the class "conform-payment"
-      $(".get-certificate").click(function() {
-        // Get the user ID from the data attribute
-        var pid = $(this).data("pid");
-
-        // Send an AJAX request to update the database
-        $.ajax({
-          type: "POST",
-          url: "certificate/certificate.php", // Replace with the URL of your PHP script
-          data: {
-            rollno: pid,
-          }, // Send the user ID to the server
-          success: function(response) {
-            // Handle the server response if needed
-            console.log("Server Response:", response);
-
-            var link = document.createElement("a");
-
-            // Set the href attribute to the file URL
-            link.href = "http://localhost/mecap/certificate/tmp/" + rolll + ".png";
-
-            // Set the download attribute to specify the filename
-            link.download = rolll + ".png";
-
-            // Trigger a click event on the anchor element
-            link.click();
-
-            window.open("http://localhost/mecap/certificate/tmp/" + rolll + ".png" , "_blank");
-
-          },
-          error: function() {
-            // Handle errors if the AJAX request fails
-            console.error("Error in Generating Certificate.");
-          }
-        });
-      });
       $(".whats-app").click(function() {
         // Get the user ID from the data attribute
         var phoneNumber = $(this).data("pid");
-        var name = $(this).data("name");        
+        var name = $(this).data("name");
 
-            var message = "Dear "+name+",\nThank You for being a part of SRKR SpellBee Challenge 2023\nThis certificate is presented to you in recognition of your active participation in SRKR SPELL BEE CHAMP. We hope you enjoyed the event.\n\nDownload Your Level 1 Certificate @  https://srkrec.edu.in/spellbee/certificate.php \nFor more details and leaderboard score, visit https://srkrec.edu.in/spellbee/\n\n-SRKR SpellBee Organizing Team(SDC), CSD";
-
+        var message = "Dear " + name + ",\nThank You for being a part of SRKR MECAP 2023\n ";
 
         // Encode the message for use in a URL
         var encodedMessage = encodeURIComponent(message);
@@ -156,23 +119,22 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` ");
         window.open(whatsappURL, "_blank");
       });
       $(".email").click(function() {
-        // Get the user ID from the data attribute
-        var phoneNumber = $(this).data("pid");
+        // Get the user's email from the data attribute
+        var email = $(this).data("pid");
         var name = $(this).data("name");
-        name.toUpperCase();
-        
+        name = name.toUpperCase();
 
-            var message = "Dear "+name+",\nThank You for being a part of SRKR SpellBee Challenge 2023\nThis certificate is presented to you in recognition of your active participation in SRKR SPELL BEE CHAMP. We hope you enjoyed the event.\n\nDownload Your Level 1 Certificate @  https://srkrec.edu.in/spellbee/certificate.php \nFor more details and leaderboard score, visit https://srkrec.edu.in/spellbee/\n\n-SRKR SpellBee Organizing Team(SDC), CSD";
-
+        var subject = "SRKR MECAP 2023";
+        var message = "Dear " + name + ",\nThank You for being a part of SRKR Mecap 2023\n";
 
         // Encode the message for use in a URL
         var encodedMessage = encodeURIComponent(message);
 
-        // Construct the WhatsApp URL
-        var whatsappURL = "https://wa.me/" + phoneNumber + "?text=" + encodedMessage;
+        // Construct the mailto URL
+        var mailtoURL = "mailto:" + email + "?subject=" + subject + "&body=" + encodedMessage ;
 
-        // Open WhatsApp with the pre-filled message
-        window.open(whatsappURL, "_blank");
+        // Open the default email client with the pre-filled message
+        window.location.href = mailtoURL;
       });
 
     });
@@ -206,8 +168,6 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` ");
       });
     });
   </script>
-
-
 
 </body>
 
