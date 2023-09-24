@@ -18,7 +18,7 @@
 
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
 
-              <div data-i18n="Analytics">Participation</div>
+              <div data-i18n="Analytics">Home</div>
 
             </a>
 
@@ -26,9 +26,21 @@
 
           <li class="menu-item ">
 
-            <a href="oralspech.php" class="menu-link">
+            <a href="participated.php" class="menu-link">
 
-              <i class="menu-icon tf-icons bx bx-layout"></i>
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+
+              <div data-i18n="Analytics">participated</div>
+
+            </a>
+
+          </li>
+
+          <li class="menu-item ">
+
+            <a href="oralpresented.php" class="menu-link">
+
+              <i class="menu-icon tf-icons bx bx-file"></i>
 
               <div data-i18n="Analytics">Oral Presentation</div>
 
@@ -38,11 +50,23 @@
 
           <li class="menu-item ">
 
-            <a href="gestspech.php" class="menu-link">
+            <a href="invitedtalk.php" class="menu-link">
+
+              <i class="menu-icon tf-icons bx bx-layout"></i>
+
+              <div data-i18n="Analytics">Invited Talks</div>
+
+            </a>
+
+          </li>
+
+          <li class="menu-item ">
+
+            <a href="chaired.php" class="menu-link">
 
               <i class="menu-icon tf-icons bx bx-collection"></i>
 
-              <div data-i18n="Analytics">Gest Presentation</div>
+              <div data-i18n="Analytics">Chaired</div>
 
             </a>
 

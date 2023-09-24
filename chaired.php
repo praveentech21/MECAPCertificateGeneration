@@ -4,7 +4,7 @@ if (!isset($_SESSION['supid'])) header("location: login.php");
 
 include 'connect.php';
 
-$participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapation` ='particapation'");
+$participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapation` ='chaired'");
 
 ?>
 
@@ -57,7 +57,7 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapatio
 
       <!-- Bordered Table -->
       <div class="card">
-        <h5 class="card-header">Certificate for participation</h5>
+        <h5 class="card-header">Certificate for Chaired participated</h5>
         <div class="card-body">
           <div class="table-responsive text-nowrap">
             <table class="table table-bordered" id="registrationTable">
@@ -75,9 +75,9 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapatio
                   <tr>
                     <td><strong><?php echo strtoupper($row['name']) ?></strong></td>
                     <td><?php echo $row['department'] ?></td>
-                    <td><button type="button" class="btn rounded-pill btn-primary get-certificate" data-pid="<?php echo $row['mid']; ?>" >Certificate</button></td>
-                    <td><button type="button" class="btn btn-success whats-app" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['mobile']; ?>" ?>">Whats App</button></td>
-                    <td><button type="button" class="btn btn-danger email" data-name="<?php echo $row['player_name'] ?>" data-pid="<?php echo $row['email']; ?>" ?>">Mail</button></td>
+                    <td><button type="button" class="btn rounded-pill btn-primary get-certificate" data-pid="<?php echo $row['mobile']; ?>" >Certificate</button></td>
+                    <td><button type="button" class="btn btn-success whats-app" data-name="<?php echo $row['name'] ?>" data-pid="<?php echo $row['mobile']; ?>" ?>Whats App</button></td>
+                    <td><button type="button" class="btn btn-danger email" data-name="<?php echo $row['name'] ?>" data-pid="<?php echo $row['email']; ?>" ?>Mail</button></td>
                   </tr>
                 <?php } ?>
               </tbody>
