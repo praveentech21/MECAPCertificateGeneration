@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL); 
 
-$im = imagecreatefrompng("participate.png");
+$im = imagecreatefrompng("participated.png");
 // if there's an error, stop processing the page:
 if(!$im)
 {
@@ -15,7 +15,7 @@ $white = imagecolorallocate($im, 255, 255, 255);
 $black = imagecolorallocate($im, 0, 0, 0);
 $font = './roboto.ttf'; // Provide the correct path to your font file
 
-$rollno=($_GET['rollno']);
+$rollno=($_POST['rollno']);
 include "../connect.php";
 
 $result=mysqli_query($conn, "SELECT * FROM `members` WHERE `mobile`='$rollno'");
@@ -28,18 +28,17 @@ if(mysqli_num_rows($result) == 0)
 else
   {
 	//echo "<h2 style='color:#AA0055;font-family:Arial;'>CODE MASTER 2018 - LEVEL 1 CERTIFICATE</h2>";  
-  $sname=ucwords(strtolower($row['player_name']));
+  $sname=ucwords($row['name']);
   $subject=$row['department'];
   //$name=$sname." - ".$rollno;
-  $name=strtoupper($sname);
 
 //writing name and roll number
-$text = $name;
-imagettftext($im, 20, 0, 470, 353, $black, $font, $text);
+$text = $sname;
+imagettftext($im, 30, 0, 550, 790, $black, $font, $text);
 
 //writing rool number
 $text = $subject; 
-imagettftext($im, 20, 0, 150, 413, $black, $font, $text);
+imagettftext($im, 30, 0, 320, 880, $black, $font, $text);
 
 $myfile = "tmp/".$rollno.".png";
 
