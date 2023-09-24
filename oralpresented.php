@@ -108,7 +108,7 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapatio
         // Send an AJAX request to update the database
         $.ajax({
           type: "POST",
-          url: "certificate/certificate.php", // Replace with the URL of your PHP script
+          url: "certificate/oralpresentation.php", // Replace with the URL of your PHP script
           data: {
             rollno: pid,
           }, // Send the user ID to the server
