@@ -76,7 +76,7 @@ $participants = mysqli_query($conn, 'SELECT * FROM `members` ');
                   <tr>
                     <td><strong><?php echo strtoupper($row['name']) ?></strong></td>
                     <td><?php echo $row['department'] ?></td>
-                    <td><?php echo $row['particapation'] ?></td>
+                    <td><?php echo strtoupper($row['particapation']) ?></td>
                     <td><button type="button" class="btn btn-success whats-app" data-name="<?php echo $row['name'] ?>" data-pid="<?php echo $row['mobile']; ?>" ?>Whats App</button></td>
                     <td><button type="button" class="btn btn-danger email" data-name="<?php echo $row['name'] ?>" data-pid="<?php echo $row['email']; ?>" ?>Mail</button></td>
                   </tr>
