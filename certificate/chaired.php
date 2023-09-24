@@ -15,7 +15,7 @@ $white = imagecolorallocate($im, 255, 255, 255);
 $black = imagecolorallocate($im, 0, 0, 0);
 $font = './roboto.ttf'; // Provide the correct path to your font file
 
-$rollno=($_GET['rollno']);
+$rollno=($_POST['rollno']);
 include "../connect.php";
 
 $result=mysqli_query($conn, "SELECT * FROM `users` WHERE `pid`='$rollno'");
