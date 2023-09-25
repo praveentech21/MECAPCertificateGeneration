@@ -34,11 +34,11 @@ else
 
 //writing name and roll number
 $text = $sname;
-imagettftext($im, 30, 0, 550, 790, $black, $font, $text);
+imagettftext($im, 30, 0, 550, 780, $black, $font, $text);
 
 //writing rool number
 $text = $subject; 
-imagettftext($im, 30, 0, 320, 880, $black, $font, $text);
+imagettftext($im, 30, 0, 320, 875, $black, $font, $text);
 
 $myfile = "tmp/".$rollno.".png";
 
