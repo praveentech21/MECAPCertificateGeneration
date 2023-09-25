@@ -1,10 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin'])) header("location: login.php");
+if (!isset($_SESSION['supid']))
+    header('location: login.php');
 
 include 'connect.php';
 
-$studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
+$studentdetails = mysqli_query($conn, 'SELECT * FROM `members`');
 
 ?>
 
@@ -15,7 +16,7 @@ $studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>EDIT STUDENT - SRKR SPELLBEE</title>
+    <title>EDIT Members - MECAP SRKR</title>
 
     <meta name="description" content="" />
 
@@ -70,24 +71,25 @@ $studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
                             <thead>
                                 <tr>
                                     <th>NAME</th>
-                                    <th>REGISTRATION NO</th>
                                     <th>DEPARTMENT</th>
-                                    <th>YEAR</th>
+                                    <th>Participation</th>
+                                    <th>Title</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
                                     <th>EDIT</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php while ($row = mysqli_fetch_array($studentdetails)) { ?>
-                                    <tr title="<?php echo $row['pid'] ?>" >
-                                        <td><strong><?php echo $row['player_name'] ?></strong></td>
-                                        <td><?php echo $row['regno'] ?></td>
+                                    <tr title="<?php echo $row['name'] ?>">
+                                        <td><?php echo $row['name'] ?></td>
                                         <td><?php echo $row['department'] ?></td>
-                                        <td><?php if ($row['place'] == '2027') echo "First Year";
-                                            elseif ($row['place'] == '2026') echo "Second Year";
-                                            elseif ($row['place'] == '2025') echo "Third Year";
-                                            elseif ($row['place'] == '2024') echo "Fourth Year";
-                                            ?></td>
-                                        <td><button type="button" class="btn btn-primary edit-button" data-pid="<?php echo $row['pid']; ?>">Edit Details</button></td>
+                                        <td><?php echo $row['particapation'] ?></td>
+                                        <td><strong><?php echo $row['title'] ?></strong></td>
+                                        <td><?php echo $row['mobile'] ?></td>
+                                        <td><?php echo $row['email'] ?></td>
+                                        <td><button type="button" class="btn btn-primary edit-button" data-pid="<?php echo $row['mobile']; ?>">Edit Details</button></td>
+                                        <td><button type="button" class="btn btn-danger delete-button" data-pid="<?php echo $row['mobile']; ?>"> Delete</button></td>
                                     </tr>
 
                                     <!-- Edit Modal for This Person Starts Here Shiva -->
@@ -108,55 +110,30 @@ $studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
                                                             <input type="text" class="form-control" id="editName" />
                                                         </div>
                                                         <div class="form-group">
+                                                            <label for="editDept">Department</label>
+                                                            <input type="text" class="form-control" id="editDept" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="editTitle">Title</label>
+                                                            <input type="text" class="form-control" id="editTitle" />
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="editMobile">Mobile Number</label>
                                                             <input type="text" class="form-control" id="editMobile" />
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="editRegno">Registration Number</label>
-                                                            <input type="text" class="form-control" id="editRegno" />
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label for="editEmail">Email</label>
                                                             <input type="text" class="form-control" id="editEmail" />
+                                                            <input type="hidden" id="pid">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="edityear">Year</label>
-                                                            <select class="form-select" id="edityear" name="batch" aria-label="Default select example">
-                                                                <option selected value="">Select Student Year</option>
-                                                                <option value="2027">First Year</option>
-                                                                <option value="2026">Second</option>
-                                                                <option value="2025">Third Year</option>
-                                                                <option value="2024">Fourth Year</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="editbranch">Branch</label>
-                                                            <select class="form-select" id="editbranch" name="branch" aria-label="Default select example">
-                                                                <option selected value="">Select Student Branch</option>
-                                                                <option value="CSD">CSD</option>
-                                                                <option value="CSE">CSE</option>
-                                                                <option value="CSBS">CSBS</option>
-                                                                <option value="CIC">CIC</option>
-                                                                <option value="CSE(IOT)">CSE(Iot)</option>
-                                                                <option value="IT">IT</option>
-                                                                <option value="AIDS">AIDS</option>
-                                                                <option value="AIML">AIML</option>
-                                                                <option value="MECH">MECH</option>
-                                                                <option value="CIVIL">CIVIL</option>
-                                                                <option value="ECE">ECE</option>
-                                                                <option value="EEE">EEE</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="editSection">Section</label>
+                                                            <label for="editSection">Participation</label>
                                                             <select class="form-select" id="editSection" name="editSection" aria-label="Default select example">
-                                                                <option selected value="">Select Student Section</option>
-                                                                <option value="A">A</option>
-                                                                <option value="B">B</option>
-                                                                <option value="C">C</option>
-                                                                <option value="D">D</option>
-                                                                <option value="E">E</option>
-                                                                <option value="F">F</option>
+                                                                <option selected value="">Select Participant Section</option>
+                                                                <option value="participat">participat</option>
+                                                                <option value="oralpresen">oralpresen</option>
+                                                                <option value="invitedtal">invitedtal</option>
+                                                                <option value="chaired">chaired</option>
                                                             </select>
                                                         </div>
                                                         <!-- Add more input fields for other details -->
@@ -164,7 +141,7 @@ $studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary update-btn">Update</button>
+                                                    <button type="button" class="btn btn-primary update-btn" >Update</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +179,7 @@ $studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
                 // Make an AJAX request to fetch student details
                 $.ajax({
                     type: "POST",
-                    url: "edit_student_details.php", // Replace with your PHP script to fetch details
+                    url: "update.php", // Replace with your PHP script to fetch details
                     data: {
                         pid: studentID,
                         work: 'edit'
@@ -210,14 +187,13 @@ $studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
                     dataType: "json",
                     success: function(data) {
                         // Populate modal input fields with retrieved data
-                        $("#editStudentID").val(data.pid);
-                        $("#editName").val(data.sname);
-                        $("#editMobile").val(data.pid);
-                        $("#editRegno").val(data.regno);
+                        $("#editName").val(data.name);
+                        $("#editDept").val(data.dept);
+                        $("#editTitle").val(data.title);
+                        $("#editMobile").val(data.mobile);
                         $("#editEmail").val(data.email);
-                        $("#editSection").val(data.section);
-                        $("#edityear").val(data.year);
-                        $("#editbranch").val(data.dept);
+                        $("#pid").val(data.mobile);
+                        $("#editSection").val(data.particapation);
                         // Populate other input fields similarly
                     },
                     error: function() {
@@ -230,6 +206,34 @@ $studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
 
             });
 
+            $(".delete-button").click(function() {
+                // Get the student ID from the data attribute
+                var studentID = $(this).data("pid");
+
+                // Make an AJAX request to fetch student details
+                $.ajax({
+                    type: "POST",
+                    url: "update.php", // Replace with your PHP script to fetch details
+                    data: {
+                        pid: studentID,
+                        work: 'delete'
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        // Populate modal input fields with retrieved data
+                        alert("Deleted Successfully");
+                        // Populate other input fields similarly
+                    },
+                    error: function() {
+                        console.error("Error fetching student details.");
+                    }
+                });
+
+                // Show the edit modal
+
+            });
+
+
             $(".close-btn").click(function() {
                 $("#editModal").modal("hide");
 
@@ -239,26 +243,26 @@ $studentdetails = mysqli_query($conn, "SELECT * FROM `users`");
             $(".update-btn").click(function() {
                 // Collect edited data from input fields
                 var updatedData = {
-                    pid: $("#editStudentID").val(),
-                    sname: $("#editName").val(),
+                    name: $("#editName").val(),
+                    department: $("#editDept").val(),
+                    title: $("#editTitle").val(),
                     mobile: $("#editMobile").val(),
-                    regno: $("#editRegno").val(),
+                    pid: $("#pid").val(),
                     email: $("#editEmail").val(),
-                    sec: $("#editSection").val(),
-                    year: $("#edityear").val(),
-                    dept: $("#editbranch").val(),
-                    work : 'update'
+                    particapation: $("#editSection").val(),
+                    work: 'update'
 
                 };
 
                 // Make an AJAX request to update student details
                 $.ajax({
                     type: "POST",
-                    url: "edit_student_details.php", // Replace with your PHP script to update details
+                    url: "update.php", // Replace with your PHP script to update details
                     data: updatedData,
                     success: function(response) {
                         // Handle success, e.g., display a success message
-                        window.location.reload();
+                       window.location.reload();
+
                         // Close the modal
                         $("#editModal").modal("hide");
                         // Optionally, reload or update the displayed data on your page
