@@ -72,6 +72,30 @@
 
           </li>
 
+          <li class="menu-item ">
+
+<a href="register.php" class="menu-link">
+
+  <i class="menu-icon tf-icons bx bx-box"></i>
+
+  <div data-i18n="Analytics">New Registration</div>
+
+</a>
+
+</li>
+
+<li class="menu-item ">
+
+<a href="update_member_details.php" class="menu-link">
+
+  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+
+  <div data-i18n="Analytics">Update Details</div>
+
+</a>
+
+</li>
+
 
           <li class="menu-item ">
 

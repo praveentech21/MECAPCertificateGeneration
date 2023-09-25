@@ -138,10 +138,9 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapatio
       $(".whats-app").click(function() {
         // Get the user ID from the data attribute
         var phoneNumber = $(this).data("pid");
-        var name = $(this).data("name");        
+        var name = $(this).data("name");
 
-            var message = "Dear "+name+",\nThank You for being a part of SRKR SpellBee Challenge 2023\nThis certificate is presented to you in recognition of your active participation in SRKR SPELL BEE CHAMP. We hope you enjoyed the event.\n\nDownload Your Level 1 Certificate @  https://srkrec.edu.in/spellbee/certificate.php \nFor more details and leaderboard score, visit https://srkrec.edu.in/spellbee/\n\n-SRKR SpellBee Organizing Team(SDC), CSD";
-
+        var message = "Dear " + name + ",\nThank You for being a part of SRKR MECAP 2023\n ";
 
         // Encode the message for use in a URL
         var encodedMessage = encodeURIComponent(message);
@@ -153,23 +152,22 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapatio
         window.open(whatsappURL, "_blank");
       });
       $(".email").click(function() {
-        // Get the user ID from the data attribute
-        var phoneNumber = $(this).data("pid");
+        // Get the user's email from the data attribute
+        var email = $(this).data("pid");
         var name = $(this).data("name");
-        name.toUpperCase();
-        
+        name = name.toUpperCase();
 
-            var message = "Dear "+name+",\nThank You for being a part of SRKR SpellBee Challenge 2023\nThis certificate is presented to you in recognition of your active participation in SRKR SPELL BEE CHAMP. We hope you enjoyed the event.\n\nDownload Your Level 1 Certificate @  https://srkrec.edu.in/spellbee/certificate.php \nFor more details and leaderboard score, visit https://srkrec.edu.in/spellbee/\n\n-SRKR SpellBee Organizing Team(SDC), CSD";
-
+        var subject = "SRKR MECAP 2023";
+        var message = "Dear " + name + ",\nThank You for being a part of SRKR Mecap 2023\n";
 
         // Encode the message for use in a URL
         var encodedMessage = encodeURIComponent(message);
 
-        // Construct the WhatsApp URL
-        var whatsappURL = "https://wa.me/" + phoneNumber + "?text=" + encodedMessage;
+        // Construct the mailto URL
+        var mailtoURL = "mailto:" + email + "?subject=" + subject + "&body=" + encodedMessage ;
 
-        // Open WhatsApp with the pre-filled message
-        window.open(whatsappURL, "_blank");
+        // Open the default email client with the pre-filled message
+        window.location.href = mailtoURL;
       });
 
     });

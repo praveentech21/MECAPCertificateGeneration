@@ -77,6 +77,7 @@ $studentdetails = mysqli_query($conn, 'SELECT * FROM `members`');
                                     <th>Mobile</th>
                                     <th>Email</th>
                                     <th>EDIT</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -228,6 +229,7 @@ $studentdetails = mysqli_query($conn, 'SELECT * FROM `members`');
                         console.error("Error fetching student details.");
                     }
                 });
+                window.location.reload();
 
                 // Show the edit modal
 
