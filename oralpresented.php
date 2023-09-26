@@ -119,7 +119,7 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapatio
             var link = document.createElement("a");
 
             // Set the href attribute to the file URL
-            link.href = "http://localhost/mecap/certificate/tmp/" + pid + ".png";
+            link.href = "http://saipraveen.free.nf/mecap/certificate/tmp/" + pid + ".png";
 
             // Set the download attribute to specify the filename
             link.download = pid + ".png";
@@ -127,7 +127,7 @@ $participants = mysqli_query($conn, "SELECT * FROM `members` WHERE `particapatio
             // Trigger a click event on the anchor element
             link.click();
 
-            window.open("http://localhost/mecap/certificate/tmp/" + pid + ".png" , "_blank");
+            window.open("http://saipraveen.free.nf/mecap/certificate/tmp/" + pid + ".png" , "_blank");
 
           },
           error: function() {
